@@ -1,5 +1,6 @@
 .env
 service-account.json
+/tmp
 
 data/*.db
 *.sqlite
