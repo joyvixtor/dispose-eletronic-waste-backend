@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    full_name TEXT NOT NULL,
+    ufpe_email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    workplace TEXT,
+    role TEXT NOT NULL DEFAULT 'user',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME
+);
+
+CREATE TRIGGER IF NOT EXISTS trg_users_updated_at
+AFTER UPDATE ON users
+FOR EACH ROW
+BEGIN
+    UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;
+END;
